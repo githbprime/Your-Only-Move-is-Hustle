@@ -3,13 +3,14 @@
 <head>
     <title>Launching...</title>
 </head>
-<body style="background-color: black;">
+<body style="background-color: black; color: white; text-align: center; padding-top: 50px;">
+
+    <button onclick="runBlankCloak()" style="padding: 10px 20px; font-size: 16px;">Launch Game</button>
+
     <script>
-        function runBlobCloak() {
-            // The target game link
+        function runBlankCloak() {
             const gameUrl = "https://truffled.lol/games/YOMIHustle/";
             
-            // We build the entire hidden webpage inside this string
             const pageContent = `
                 <!DOCTYPE html>
                 <html>
@@ -22,19 +23,21 @@
                 </html>
             `;
 
-            // Convert our string into a temporary memory file (Blob)
-            const blobData = new Blob([pageContent], { type: 'text/html' });
-            const temporaryUrl = URL.createObjectURL(blobData);
-
-            // Open our untrackable memory file in a new tab
-            window.open(temporaryUrl, '_blank');
+            // Open a blank tab
+            const newWindow = window.open('about:blank', '_blank');
             
-            // Instantly send the original tab back to your Google Site
-            window.history.back();
+            // Check if popup was allowed
+            if (newWindow) {
+                // Write the code directly into the new window
+                newWindow.document.write(pageContent);
+                newWindow.document.close();
+                
+                // Now it's safe to immediately navigate back, no delay needed
+                window.history.back();
+            } else {
+                alert("Popup blocked! Please allow popups for this site.");
+            }
         }
-
-        // Run the new cloak
-        runBlobCloak();
     </script>
 </body>
 </html>
