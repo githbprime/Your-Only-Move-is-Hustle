@@ -1,28 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>YOMI Hustle</title>
-    <style>
-        /* Removes all borders and scrollbars */
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden;
-            background-color: black;
-        }
-        /* Makes the game fill the screen */
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: block;
-        }
-    </style>
+    <title>YOMI Hustle Launcher</title>
 </head>
-<body>
+<body style="background-color: black; color: white; font-family: sans-serif; text-align: center; padding-top: 20%;">
+    
+    <h2>Launching Game...</h2>
 
-    <iframe src="https://truffled.lol/games/YOMIHustle/"></iframe>
+    <script>
+        // The original link that works inside the about:blank window
+        const gameUrl = "https://truffled.lol/games/YOMIHustle/";
 
+        function launchGame() {
+            // Open the blank window
+            const newWindow = window.open('about:blank', '_blank');
+            
+            if (newWindow) {
+                // Style the new window to be full-screen black
+                newWindow.document.body.style.margin = '0';
+                newWindow.document.body.style.height = '100vh';
+                newWindow.document.body.style.overflow = 'hidden';
+                newWindow.document.body.style.backgroundColor = '#000';
+                
+                // Create and inject the iframe
+                const gameIframe = newWindow.document.createElement('iframe');
+                gameIframe.style.border = 'none';
+                gameIframe.style.width = '100%';
+                gameIframe.style.height = '100%';
+                gameIframe.src = gameUrl;
+                
+                newWindow.document.body.appendChild(gameIframe);
+                
+                // Send the original GitHub tab back to your Google Site
+                window.history.back(); 
+            } else {
+                // Fallback text if their browser blocks the automated pop-up
+                document.body.innerHTML = "<h2>Pop-up blocked! Please click the icon in your address bar to allow pop-ups.</h2>";
+            }
+        }
+        
+        // Execute the function
+        launchGame();
+    </script>
 </body>
 </html>
